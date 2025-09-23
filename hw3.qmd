@@ -22,6 +22,16 @@ Load the appropriate packages and load the data.
 
 ### Answer:
 
++ library(tidyverse)
++ ct_schools <- read.csv(“ct_schools.csv”)
++ head(ct_schools)
+
+```{r}
+library(tidyverse)
+ct_schools <- read.csv("ct_schools.csv")
+head(ct_schools)
+```
+
 ## Problem 2: Data manipulation
 
 
