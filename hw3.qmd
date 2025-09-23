@@ -1,0 +1,58 @@
+---
+title: "Data Science and Society using R: Homework Template"
+author: "Jun Yan]"
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    embed-resources: true
+    code-fold: true
+    theme: cosmo
+---
+
+## Context
+
+Chetty et al. (2014) show that children’s chances of rising out of poverty in the U.S. vary sharply across commuting zones, with higher mobility in areas with less segregation, less inequality, stronger schools, more two-parent families, and greater social capital. The data and its variable dictionary are available as data/Chetty_2014.csv and data/Chetty_2014_dict.csv. Here we look into a subset of the data, exploring the relationship between economic mobility and CZ characteristics: household income per capita (hhi_percap). The mobility measure that you will use in this analysis captures the probability that a child born to a parent in quintile 1 moves to income quintile 5 as an adult (prob_q1q5).
+
+
+## Problem 1: Read and filter data to get data only for the 100 largest commuting zones (CZ). You will work with filtered data, chetty_top100, throughout this lab.
+
+
+### The Answer
+library(tidyverse): makes packages available 
+chetty <- read.csv("Chetty_2014.csv"): allows me to read a CSV in “Chetty_2014.csv”
+glimpse(chetty): gave me a glimpse of the data
+chetty_top100 <- chetty %>% filter(top_100 == 1): gave me the top 100
+chetty_top100[ , 1:7]: gave me the first 7 columns since the data was so long
+
+
+
+## Problem 2: Make a scatterplot with household income per capita (hhi_percap) on the x-axis, and mobility (abs_mobility) on the y-axis. (A) Describe the graph: what is the approximate range of the x-axis? (B) What is the approximate range of the y-axis? (C) Do you think there is a relationship between these two variables?
+
+
+### The Answer
+
+plot(chetty_top100$hhi_percap, chetty_top100$abs_mobility,
+   main = "Household income per capita vs. mobility",
+   xlab = "Household income per capita", ylab = "mobility",
+   pch = 19, col = "steelblue"): Gave me the scatterplot for the data
+
+
+A: The approximate X range is from 20000-55000
+B: The approximate Y range is from 34-46
+C: It looks like there is a positive relationship between the 2 variables. The househould income per capita correlates to the mobility meaning that the percent chance of a child making more than their parent's income is in relation to their household income.
+
+
+
+## Problem 3: Analysis and Interpretation
+
+
+### Your Answer
+[Perform your analysis here. Include R code and a narrative
+interpreting the results, connecting them to societal or ethical
+considerations relevant to the course.]
+
+
+
+
