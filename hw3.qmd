@@ -43,6 +43,59 @@ c. Make a table that show the number of schools of each of the three school type
 
 ### Answer:
 
+a. 
+
+ct_schools2 <- ct_schools %>%
+  mutate(
+     sch_type = case_when(
+       MAGNET == 1 ~ "Magnet",
+       CHARTR == 1 ~ "Charter",
+       MAGNET == 2 & CHARTR == 2 ~ "TPS",
+       TRUE ~ NA_character_ 
+     )
+  )
+
+```{r}
+ct_schools2 <- ct_schools %>%
+  mutate(
+    sch_type = case_when(
+      MAGNET == 1 ~ "Magnet",
+      CHARTR == 1 ~ "Charter",
+      MAGNET == 2 & CHARTR == 2 ~ "TPS",
+      TRUE ~ NA_character_ 
+    )
+  )
+```
+
+b. 
+
+ct_schools2 %>%
+  count(sch_type)
+
+```{r}
+ct_schools2 %>%
+  count(sch_type)
+```
+
+c. 
+ct_schools2 %>%
+group_by(sch_type) %>%
+  summarise(
+    n = n(),
+    n_missing_free_lunch = sum(is.na(FRELCH)),
+    pct_missing = mean(is.na(FRELCH)) * 100
+  )
+
+```{r}
+ct_schools2 %>%
+group_by(sch_type) %>%
+  summarise(
+    n = n(),
+    n_missing_free_lunch = sum(is.na(FRELCH)),
+    pct_missing = mean(is.na(FRELCH)) * 100
+  )
+```
+
 ## Problem 3: Descriptives
 
 a. How many schools are elementary schools? Middle schools? High schools? Other? Missing?
