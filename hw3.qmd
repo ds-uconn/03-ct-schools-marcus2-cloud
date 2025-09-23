@@ -175,6 +175,146 @@ b. Visualize these data to see the variability of each of these variables (Hint:
 
 ### Answer:
 
+a:
+
+ct_schools <- ct_schools |>
+  mutate(
+    pct_white = WHITE / TOTETH * 100,
+    pct_black = BLACK / TOTETH * 100,
+    pct_hispanic = HISP / TOTETH * 100,
+    pct_asian = ASIAN / TOTETH * 100,
+    pct_other = 100 - pct_white - pct_black - pct_hispanic - pct_asian,
+    pct_frpl = (FRELCH + REDLCH) / TOTETH * 100
+  )
+
+```{r}
+ct_schools <- ct_schools |>
+  mutate(
+    pct_white = WHITE / TOTETH * 100,
+    pct_black = BLACK / TOTETH * 100,
+    pct_hispanic = HISP / TOTETH * 100,
+    pct_asian = ASIAN / TOTETH * 100,
+    pct_other = 100 - pct_white - pct_black - pct_hispanic - pct_asian,
+    pct_frpl = (FRELCH + REDLCH) / TOTETH * 100
+  )
+
+```
+
+b. 
+ggplot(ct_schools, aes(x = pct_white)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % White Students Across Schools",
+     x = "Percent White Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```{r}
+ggplot(ct_schools, aes(x = pct_white)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % White Students Across Schools",
+     x = "Percent White Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```
+
+ggplot(ct_schools, aes(x = pct_black)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Black Students Across Schools",
+     x = "Percent Black Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```{r}
+ggplot(ct_schools, aes(x = pct_black)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Black Students Across Schools",
+     x = "Percent Black Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```
+
+ggplot(ct_schools, aes(x = pct_hispanic)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Hispanic Students Across Schools",
+     x = "Percent Hispanic Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```{r}
+ggplot(ct_schools, aes(x = pct_hispanic)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Hispanic Students Across Schools",
+     x = "Percent Hispanic Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```
+
+ggplot(ct_schools, aes(x = pct_asian)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Asian Students Across Schools",
+     x = "Percent Asian Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```{r}
+ggplot(ct_schools, aes(x = pct_asian)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Asian Students Across Schools",
+     x = "Percent Asian Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```
+
+ggplot(ct_schools, aes(x = pct_other)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Other Students Across Schools",
+     x = "Percent Other Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```{r}
+ggplot(ct_schools, aes(x = pct_other)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Other Students Across Schools",
+     x = "Percent Other Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```
+
+ggplot(ct_schools, aes(x = pct_frpl)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Frpl Students Across Schools",
+     x = "Percent Frpl Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```{r}
+ggplot(ct_schools, aes(x = pct_frpl)) +
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+   labs(
+     title = "Distribution of % Frpl Students Across Schools",
+     x = "Percent Frpl Students",
+     y = "Number of Schools") +
+       theme_minimal()
+
+```
+
 ## Problem 5: 
 
 Visualize the variation in the percent of students receiving free lunch (frelch) for magnet schools, TPS, and charter schools (Hint: Use geom_boxplot).
