@@ -56,7 +56,7 @@ ct_schools2 <- ct_schools %>%
   )
 
 ```{r}
-ct_schools2 <- ct_schools %>%
+ct_schools <- ct_schools %>%
   mutate(
     sch_type = case_when(
       MAGNET == 1 ~ "Magnet",
@@ -73,7 +73,7 @@ ct_schools2 %>%
   count(sch_type)
 
 ```{r}
-ct_schools2 %>%
+ct_schools %>%
   count(sch_type)
 ```
 
@@ -87,7 +87,7 @@ group_by(sch_type) %>%
   )
 
 ```{r}
-ct_schools2 %>%
+ct_schools %>%
 group_by(sch_type) %>%
   summarise(
     n = n(),
@@ -321,11 +321,11 @@ Visualize the variation in the percent of students receiving free lunch (frelch)
 
 ### Answer:
 
-ct_schools <- ct_schools |>
+ct_schools <- ct_schools2 |>
   mutate(pct_freelunch = FRELCH / TOTFRL * 100)
 
 ```{r}
-ct_schools <- ct_schools2 |>
+ct_schools <- ct_schools |>
   mutate(pct_freelunch = FRELCH / TOTFRL * 100)
 ```
 
@@ -341,7 +341,6 @@ ggplot(ct_schools, aes(x = sch_type, y = pct_freelunch)) +
 
 
 ct_schools |>
-  filter(!is.na(pct_freelunch), is.finite(pct_freelunch), !is.nan(pct_freelunch)) |>
   ggplot(aes(x = sch_type, y = pct_freelunch)) +
   geom_boxplot() +
   labs(
@@ -360,6 +359,48 @@ ct_schools |>
 Visualize the variation in the percent of students of each race and ethnicity in the data file (Black, White, Hispanic, Asian and Other) for each of the type of schools (magnet, TPS and charter).
 
 ### Answer:
+
+library(tidyr)
+
+race_data <- ct_schools |>
+  select(sch_type, pct_white, pct_black, pct_hispanic, pct_asian, pct_other) |>
+  pivot_longer(
+    cols = starts_with("pct_"),
+    names_to = "race",
+    values_to = "percent"
+  )
+
+```{r}
+
+library(tidyr)
+
+race_data <- ct_schools |>
+  select(sch_type, pct_white, pct_black, pct_hispanic, pct_asian, pct_other) |>
+  pivot_longer(
+    cols = starts_with("pct_"),
+    names_to = "race",
+    values_to = "percent"
+  ) |>
+  mutate(
+    race = case_when(
+      race == "pct_white" ~ "White",
+      race == "pct_black" ~ "Black",
+      race == "pct_hispanic" ~ "Hispanic",
+      race == "pct_asian" ~ "Asian",
+      race == "pct_other" ~ "Other"
+    )
+  )
+```
+
+ggplot(race_data, aes(x = sch_type, y = percent)) +
+  geom_boxplot() +
+  facet_wrap(~ race, scales = "free_y") 
+
+```{r}
+ggplot(race_data, aes(x = sch_type, y = percent)) +
+  geom_boxplot() +
+  facet_wrap(~ race, scales = "free_y") 
+```
 
 ## Problem 7:
 
