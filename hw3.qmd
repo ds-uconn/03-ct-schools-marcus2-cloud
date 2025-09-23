@@ -1,6 +1,6 @@
 ---
-title: "Data Science and Society using R: Homework Template"
-author: "Jun Yan]"
+title: "Homework Assignment 3: Connecticut Schools"
+author: "Marcus Arles"
 date: "`r Sys.Date()`"
 format:
   html:
@@ -13,45 +13,68 @@ format:
 
 ## Context
 
-Chetty et al. (2014) show that children’s chances of rising out of poverty in the U.S. vary sharply across commuting zones, with higher mobility in areas with less segregation, less inequality, stronger schools, more two-parent families, and greater social capital. The data and its variable dictionary are available as data/Chetty_2014.csv and data/Chetty_2014_dict.csv. Here we look into a subset of the data, exploring the relationship between economic mobility and CZ characteristics: household income per capita (hhi_percap). The mobility measure that you will use in this analysis captures the probability that a child born to a parent in quintile 1 moves to income quintile 5 as an adult (prob_q1q5).
+Data on schools from the Common Core of Data (CCD) are collected by the National Center for Education Statistics. Information about the CCD can be found here. We are working with a subset of the 2013-14 dataset, data/ct_schools in the classnotes repo. A variable codebook for the CCD, which will explain what each column represents in the data file is located in the flat file in the record layout column and 2013-14 row.
 
 
-## Problem 1: Read and filter data to get data only for the 100 largest commuting zones (CZ). You will work with filtered data, chetty_top100, throughout this lab.
+## Problem 1: 
+
+Load the appropriate packages and load the data.
+
+### Answer:
+
+## Problem 2: Data manipulation
 
 
-### The Answer
-library(tidyverse): makes packages available 
-chetty <- read.csv("Chetty_2014.csv"): allows me to read a CSV in “Chetty_2014.csv”
-glimpse(chetty): gave me a glimpse of the data
-chetty_top100 <- chetty %>% filter(top_100 == 1): gave me the top 100
-chetty_top100[ , 1:7]: gave me the first 7 columns since the data was so long
+a. Make a new variable sch_type that has the value Charter, Magnet or TPS, to specify if the school is a charter, magnet or traditional public school.
+
+b. How many schools of each of these three types are in our area?
+
+c. Make a table that show the number of schools of each of the three school types that are missing data for free lunch.
+
+### Answer:
+
+## Problem 3: Descriptives
+
+a. How many schools are elementary schools? Middle schools? High schools? Other? Missing?
+
+b. How many schools are eligible for Title I status? Summarize the count of schools in each category
+
+### Answer:
+
+## Problem 4: Racial composition
+
+a. Create new variables that compute the percentage of students who are Black, White, Hispanic, Asian or another race (call this variable “other”), and the percentage of students receiving free OR reduced price lunch.
+
+b. Visualize these data to see the variability of each of these variables (Hint: Use geom_histogram).
+
+### Answer:
+
+## Problem 5: 
+
+Visualize the variation in the percent of students receiving free lunch (frelch) for magnet schools, TPS, and charter schools (Hint: Use geom_boxplot).
+
+### Answer:
+
+## Problem 6: 
+
+Visualize the variation in the percent of students of each race and ethnicity in the data file (Black, White, Hispanic, Asian and Other) for each of the type of schools (magnet, TPS and charter).
+
+### Answer:
+
+## Problem 7:
+
+With more R skills what types of questions could you answer using this dataset?
+
+### Answer:
+
+## Problem 8:
+
+What are some questions you have about this dataset? What information would you add to the dataset, if you could?
+
+### Answer:
 
 
 
-## Problem 2: Make a scatterplot with household income per capita (hhi_percap) on the x-axis, and mobility (abs_mobility) on the y-axis. (A) Describe the graph: what is the approximate range of the x-axis? (B) What is the approximate range of the y-axis? (C) Do you think there is a relationship between these two variables?
-
-
-### The Answer
-
-plot(chetty_top100$hhi_percap, chetty_top100$abs_mobility,
-   main = "Household income per capita vs. mobility",
-   xlab = "Household income per capita", ylab = "mobility",
-   pch = 19, col = "steelblue"): Gave me the scatterplot for the data
-
-
-A: The approximate X range is from 20000-55000
-B: The approximate Y range is from 34-46
-C: It looks like there is a positive relationship between the 2 variables. The househould income per capita correlates to the mobility meaning that the percent chance of a child making more than their parent's income is in relation to their household income.
-
-
-
-## Problem 3: Analysis and Interpretation
-
-
-### Your Answer
-[Perform your analysis here. Include R code and a narrative
-interpreting the results, connecting them to societal or ethical
-considerations relevant to the course.]
 
 
 
