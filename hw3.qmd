@@ -137,6 +137,36 @@ ct_schools |>
   count(level_group)
 
 ```
+
+b. 
+
+ct_schools <- ct_schools |>
+   mutate(title_i_status = case_when(
+     TITLEI == 1 ~ "Eligible",
+     TITLEI == 2 ~ "Not Eligible",
+     is.na(TITLEI) ~ "Missing",
+     TRUE ~ "Other"
+   ))
+
+```{r}
+ct_schools <- ct_schools |>
+   mutate(title_i_status = case_when(
+     TITLEI == 1 ~ "Eligible",
+     TITLEI == 2 ~ "Not Eligible",
+     is.na(TITLEI) ~ "Missing",
+     TRUE ~ "Other"
+   ))
+
+```
+
+ct_schools |>
+   count(title_i_status)
+
+```{r}
+ct_schools |>
+  count(title_i_status)
+```
+
 ## Problem 4: Racial composition
 
 a. Create new variables that compute the percentage of students who are Black, White, Hispanic, Asian or another race (call this variable “other”), and the percentage of students receiving free OR reduced price lunch.
