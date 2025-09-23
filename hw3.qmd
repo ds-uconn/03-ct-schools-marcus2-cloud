@@ -408,6 +408,14 @@ With more R skills what types of questions could you answer using this dataset?
 
 ### Answer:
 
+With more R skills, I can possibly answer these questions:
+
++ How many schools are in the same city? or The percentage of schools in a certain city?
++ How many students are in a certain grade?
++ Are there more or less students/members in a certain area? 
++ Do title/non title schools have a majority of a certain race?
++ What is the student-ratio type in each school? And does the area have any affect on that?
+
 ## Problem 8:
 
 What are some questions you have about this dataset? What information would you add to the dataset, if you could?
