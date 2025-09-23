@@ -321,6 +321,40 @@ Visualize the variation in the percent of students receiving free lunch (frelch)
 
 ### Answer:
 
+ct_schools <- ct_schools |>
+  mutate(pct_freelunch = FRELCH / TOTFRL * 100)
+
+```{r}
+ct_schools <- ct_schools2 |>
+  mutate(pct_freelunch = FRELCH / TOTFRL * 100)
+```
+
+ggplot(ct_schools, aes(x = sch_type, y = pct_freelunch)) + 
+  geom_boxplot() +
+  labs(
+      title = “Percent of Students Receiving Free Lunch by School Type”,
+      x = “School Type”,
+      y = “Percent of students”
+   )
+
+```{r}
+
+
+ct_schools |>
+  filter(!is.na(pct_freelunch), is.finite(pct_freelunch), !is.nan(pct_freelunch)) |>
+  ggplot(aes(x = sch_type, y = pct_freelunch)) +
+  geom_boxplot() +
+  labs(
+    title = "Percent of Students Receiving Free Lunch by School Type",
+    x = "School Type",
+    y = "Percent Free Lunch"
+  )
+
+
+```
+
+
+
 ## Problem 6: 
 
 Visualize the variation in the percent of students of each race and ethnicity in the data file (Black, White, Hispanic, Asian and Other) for each of the type of schools (magnet, TPS and charter).
