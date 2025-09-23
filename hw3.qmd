@@ -104,6 +104,39 @@ b. How many schools are eligible for Title I status? Summarize the count of scho
 
 ### Answer:
 
+a. 
+
+ct_schools <- ct_schools |>
+   mutate(level_group = case_when(
+     LEVEL == 1 ~ "Elementary",
+     LEVEL == 2 ~ "Middle",
+     LEVEL == 3 ~ "High",
+     is.na(LEVEL) ~ "Missing",
+     TRUE ~ "Other"
+   )
+  )
+
+```{r}
+ct_schools <- ct_schools |>
+   mutate(level_group = case_when(
+     LEVEL == 1 ~ "Elementary",
+     LEVEL == 2 ~ "Middle",
+     LEVEL == 3 ~ "High",
+     is.na(LEVEL) ~ "Missing",
+     TRUE ~ "Other"
+   )
+  )
+
+```
+
+ct_schools |>
+  count(level_group)
+
+```{r}
+ct_schools |>
+  count(level_group)
+
+```
 ## Problem 4: Racial composition
 
 a. Create new variables that compute the percentage of students who are Black, White, Hispanic, Asian or another race (call this variable “other”), and the percentage of students receiving free OR reduced price lunch.
