@@ -22,10 +22,6 @@ Load the appropriate packages and load the data.
 
 ### Answer:
 
-+ library(tidyverse)
-+ ct_schools <- read.csv(“ct_schools.csv”)
-+ head(ct_schools)
-
 ```{r}
 library(tidyverse)
 ct_schools <- read.csv("ct_schools.csv")
@@ -45,23 +41,6 @@ c. Make a table that show the number of schools of each of the three school type
 
 a. 
 
-ct_schools2 <- ct_schools %>%
-
-  mutate(
-
-     sch_type = case_when(
-
-       MAGNET == 1 ~ "Magnet",
-
-       CHARTR == 1 ~ "Charter",
-
-       MAGNET == 2 & CHARTR == 2 ~ "TPS",
-
-       TRUE ~ NA_character_ 
-
-     )
-  )
-
 ```{r}
 ct_schools <- ct_schools %>%
   mutate(
@@ -76,35 +55,12 @@ ct_schools <- ct_schools %>%
 
 b. 
 
-ct_schools2 %>%
-
-  count(sch_type)
-
 ```{r}
 ct_schools %>%
   count(sch_type)
 ```
 
-Charter: 3
-
-Magnet: 28
-
-TPS: 91
-
 c. 
-
-ct_schools2 %>%
-
-group_by(sch_type) %>%
-
-  summarise(
-
-    n = n(),
-
-    n_missing_free_lunch = sum(is.na(FRELCH)),
-
-    pct_missing = mean(is.na(FRELCH)) * 100
-  )
 
 ```{r}
 ct_schools %>%
@@ -126,23 +82,6 @@ b. How many schools are eligible for Title I status? Summarize the count of scho
 
 a. 
 
-ct_schools <- ct_schools |>
-
-   mutate(level_group = case_when(
-
-     LEVEL == 1 ~ "Elementary",
-
-     LEVEL == 2 ~ "Middle",
-
-     LEVEL == 3 ~ "High",
-
-     is.na(LEVEL) ~ "Missing",
-
-     TRUE ~ "Other"
-    
-   )
-  )
-
 ```{r}
 ct_schools <- ct_schools |>
    mutate(level_group = case_when(
@@ -156,40 +95,13 @@ ct_schools <- ct_schools |>
 
 ```
 
-ct_schools |>
-
-  count(level_group)
-
 ```{r}
 ct_schools |>
   count(level_group)
 
 ```
-
-Elementary: 69
-
-Middle: 13
-
-High: 26
-
-Other: 14
 
 b. 
-
-ct_schools <- ct_schools |>
-
-   mutate(title_i_status = case_when(
-
-     TITLEI == 1 ~ "Eligible",
-
-     TITLEI == 2 ~ "Not Eligible",
-
-     is.na(TITLEI) ~ "Missing",
-
-     TRUE ~ "Other"
-
-   )
-  )
 
 ```{r}
 ct_schools <- ct_schools |>
@@ -202,17 +114,10 @@ ct_schools <- ct_schools |>
 
 ```
 
-ct_schools |>
-   count(title_i_status)
-
 ```{r}
 ct_schools |>
   count(title_i_status)
 ```
-
-Eligible: 78
-
-Not Eligible: 44
 
 ## Problem 4: Racial composition
 
@@ -223,24 +128,6 @@ b. Visualize these data to see the variability of each of these variables (Hint:
 ### Answer:
 
 a:
-
-ct_schools <- ct_schools |>
-
-  mutate(
-
-    pct_white = WHITE / TOTETH * 100,
-
-    pct_black = BLACK / TOTETH * 100,
-
-    pct_hispanic = HISP / TOTETH * 100,
-
-    pct_asian = ASIAN / TOTETH * 100,
-
-    pct_other = 100 - pct_white - pct_black - pct_hispanic - pct_asian,
-
-    pct_frpl = (FRELCH + REDLCH) / TOTETH * 100
-
-  )
 
 ```{r}
 ct_schools <- ct_schools |>
@@ -257,21 +144,7 @@ ct_schools <- ct_schools |>
 
 b. 
 
-White: 
-
-ggplot(ct_schools, aes(x = pct_white)) +
-
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-
-   labs(
-
-     title = "Distribution of % White Students Across Schools",
-
-     x = "Percent White Students",
-
-     y = "Number of Schools") +
-
-       theme_minimal()
+White:
 
 ```{r}
 ggplot(ct_schools, aes(x = pct_white)) +
@@ -287,20 +160,6 @@ ggplot(ct_schools, aes(x = pct_white)) +
 This histogram for the percent of white students is skewed to the right which means that less schools have a larger percentage of white students. Out of all the percentages shown, 0% of white students is the most common distribution of white students in schools because in the histogram, you can see that 0% has more than 15 which is the highest bar there.
 
 Black:
-
-ggplot(ct_schools, aes(x = pct_black)) +
-
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-
-   labs(
-
-     title = "Distribution of % Black Students Across Schools",
-
-     x = "Percent Black Students",
-
-     y = "Number of Schools") +
-
-       theme_minimal()
 
 ```{r}
 ggplot(ct_schools, aes(x = pct_black)) +
@@ -318,20 +177,6 @@ This histogram is also a little skewed to the right. This shows that 30% of blac
 
 Hispanic:
 
-ggplot(ct_schools, aes(x = pct_hispanic)) +
-
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-
-   labs(
-
-     title = "Distribution of % Hispanic Students Across Schools",
-
-     x = "Percent Hispanic Students",
-
-     y = "Number of Schools") +
-
-       theme_minimal()
-
 ```{r}
 ggplot(ct_schools, aes(x = pct_hispanic)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
@@ -346,20 +191,6 @@ ggplot(ct_schools, aes(x = pct_hispanic)) +
 This histogram is a little assymetric as the highest point is in the middle with the most number of schools having 45% of hispanic students. You can make an argument that it is skewed to the right with the way this histogram is set up.
 
 Asian:
-
-ggplot(ct_schools, aes(x = pct_asian)) +
-
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-
-   labs(
-
-     title = "Distribution of % Asian Students Across Schools",
-
-     x = "Percent Asian Students",
-
-     y = "Number of Schools") +
-
-       theme_minimal()
 
 ```{r}
 ggplot(ct_schools, aes(x = pct_asian)) +
@@ -376,20 +207,6 @@ This histogram is clearly skewed to the right. Most schools have 0% of asian stu
 
 Other:
 
-ggplot(ct_schools, aes(x = pct_other)) +
-
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-
-   labs(
-
-     title = "Distribution of % Other Students Across Schools",
-
-     x = "Percent Other Students",
-
-     y = "Number of Schools") +
-
-       theme_minimal()
-
 ```{r}
 ggplot(ct_schools, aes(x = pct_other)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
@@ -404,20 +221,6 @@ ggplot(ct_schools, aes(x = pct_other)) +
 This distribution is also right skewed even though the tallest bar is in the middle. We can clearly see a huge dip when the distribution continues to the right.
 
 Free Lunch:
-
-ggplot(ct_schools, aes(x = pct_frpl)) +
-
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-
-   labs(
-
-     title = "Distribution of % Free Lunch Students Across Schools",
-
-     x = "Percent Free Lunch Students",
-
-     y = "Number of Schools") +
-
-       theme_minimal()
 
 ```{r}
 ggplot(ct_schools, aes(x = pct_frpl)) +
@@ -438,28 +241,10 @@ Visualize the variation in the percent of students receiving free lunch (frelch)
 
 ### Answer:
 
-ct_schools <- ct_schools2 |>
-
-  mutate(pct_freelunch = FRELCH / TOTFRL * 100)
-
 ```{r}
 ct_schools <- ct_schools |>
   mutate(pct_freelunch = FRELCH / TOTFRL * 100)
 ```
-
-ggplot(ct_schools, aes(x = sch_type, y = pct_freelunch)) + 
-
-  geom_boxplot() +
-
-  labs(
-
-      title = “Percent of Students Receiving Free Lunch by School Type”,
-
-      x = “School Type”,
-
-      y = “Percent of students”
-
-   )
 
 ```{r}
 
@@ -488,22 +273,6 @@ Visualize the variation in the percent of students of each race and ethnicity in
 
 ### Answer:
 
-library(tidyr)
-
-race_data <- ct_schools |>
-
-  select(sch_type, pct_white, pct_black, pct_hispanic, pct_asian, pct_other) |>
-
-  pivot_longer(
-
-    cols = starts_with("pct_"),
-
-    names_to = "race",
-
-    values_to = "percent"
-
-  )
-
 ```{r}
 
 library(tidyr)
@@ -525,10 +294,6 @@ race_data <- ct_schools |>
     )
   )
 ```
-
-ggplot(race_data, aes(x = sch_type, y = percent)) +
-  geom_boxplot() +
-  facet_wrap(~ race, scales = "free_y") 
 
 ```{r}
 ggplot(race_data, aes(x = sch_type, y = percent)) +
@@ -603,6 +368,8 @@ What information can I add?:
 + A student's main language
 
 This project was a little more difficult than expected, but my friends really helped me. I also had some assistance with ChatGPT. I had to figure some stuff out on my own, but I got it done, and that's what helps us learn.
+
+Also, when I realizd that there is a coding window that pops up and shows what I've voded, I just showed that instead of rewriting my code on the whole thing. It also shows the answers, so I also stopped rewriting the answers down since it's already there. It makes it look more clean and easier to read. 
 
 
 
