@@ -46,12 +46,19 @@ c. Make a table that show the number of schools of each of the three school type
 a. 
 
 ct_schools2 <- ct_schools %>%
+
   mutate(
+
      sch_type = case_when(
+
        MAGNET == 1 ~ "Magnet",
+
        CHARTR == 1 ~ "Charter",
+
        MAGNET == 2 & CHARTR == 2 ~ "TPS",
+
        TRUE ~ NA_character_ 
+
      )
   )
 
@@ -70,6 +77,7 @@ ct_schools <- ct_schools %>%
 b. 
 
 ct_schools2 %>%
+
   count(sch_type)
 
 ```{r}
@@ -77,12 +85,24 @@ ct_schools %>%
   count(sch_type)
 ```
 
+Charter: 3
+
+Magnet: 28
+
+TPS: 91
+
 c. 
+
 ct_schools2 %>%
+
 group_by(sch_type) %>%
+
   summarise(
+
     n = n(),
+
     n_missing_free_lunch = sum(is.na(FRELCH)),
+
     pct_missing = mean(is.na(FRELCH)) * 100
   )
 
@@ -107,12 +127,19 @@ b. How many schools are eligible for Title I status? Summarize the count of scho
 a. 
 
 ct_schools <- ct_schools |>
+
    mutate(level_group = case_when(
+
      LEVEL == 1 ~ "Elementary",
+
      LEVEL == 2 ~ "Middle",
+
      LEVEL == 3 ~ "High",
+
      is.na(LEVEL) ~ "Missing",
+
      TRUE ~ "Other"
+    
    )
   )
 
@@ -130,6 +157,7 @@ ct_schools <- ct_schools |>
 ```
 
 ct_schools |>
+
   count(level_group)
 
 ```{r}
@@ -137,16 +165,31 @@ ct_schools |>
   count(level_group)
 
 ```
+
+Elementary: 69
+
+Middle: 13
+
+High: 26
+
+Other: 14
 
 b. 
 
 ct_schools <- ct_schools |>
+
    mutate(title_i_status = case_when(
+
      TITLEI == 1 ~ "Eligible",
+
      TITLEI == 2 ~ "Not Eligible",
+
      is.na(TITLEI) ~ "Missing",
+
      TRUE ~ "Other"
-   ))
+
+   )
+  )
 
 ```{r}
 ct_schools <- ct_schools |>
@@ -167,6 +210,10 @@ ct_schools |>
   count(title_i_status)
 ```
 
+Eligible: 78
+
+Not Eligible: 44
+
 ## Problem 4: Racial composition
 
 a. Create new variables that compute the percentage of students who are Black, White, Hispanic, Asian or another race (call this variable “other”), and the percentage of students receiving free OR reduced price lunch.
@@ -178,13 +225,21 @@ b. Visualize these data to see the variability of each of these variables (Hint:
 a:
 
 ct_schools <- ct_schools |>
+
   mutate(
+
     pct_white = WHITE / TOTETH * 100,
+
     pct_black = BLACK / TOTETH * 100,
+
     pct_hispanic = HISP / TOTETH * 100,
+
     pct_asian = ASIAN / TOTETH * 100,
+
     pct_other = 100 - pct_white - pct_black - pct_hispanic - pct_asian,
+
     pct_frpl = (FRELCH + REDLCH) / TOTETH * 100
+
   )
 
 ```{r}
@@ -201,6 +256,22 @@ ct_schools <- ct_schools |>
 ```
 
 b. 
+
+ggplot(ct_schools, aes(x = pct_white)) +
+
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+
+   labs(
+
+     title = "Distribution of % White Students Across Schools",
+
+     x = "Percent White Students",
+
+     y = "Number of Schools") +
+
+       theme_minimal()
+
+```{r}
 ggplot(ct_schools, aes(x = pct_white)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
    labs(
@@ -209,17 +280,25 @@ ggplot(ct_schools, aes(x = pct_white)) +
      y = "Number of Schools") +
        theme_minimal()
 
-```{r}
-ggplot(ct_schools, aes(x = pct_white)) +
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-   labs(
-     title = "Distribution of % White Students Across Schools",
-     x = "Percent White Students",
-     y = "Number of Schools") +
-       theme_minimal()
-
 ```
 
+This histogram for the percent of white students is skewed to the right which means that less schools have a larger percentage of white students. Out of all the percentages shown, 0% of white students is the most common distribution of white students in schools because in the histogram, you can see that 0% has more than 15 which is the highest bar there.
+
+ggplot(ct_schools, aes(x = pct_black)) +
+
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+
+   labs(
+
+     title = "Distribution of % Black Students Across Schools",
+
+     x = "Percent Black Students",
+
+     y = "Number of Schools") +
+
+       theme_minimal()
+
+```{r}
 ggplot(ct_schools, aes(x = pct_black)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
    labs(
@@ -228,17 +307,26 @@ ggplot(ct_schools, aes(x = pct_black)) +
      y = "Number of Schools") +
        theme_minimal()
 
-```{r}
-ggplot(ct_schools, aes(x = pct_black)) +
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-   labs(
-     title = "Distribution of % Black Students Across Schools",
-     x = "Percent Black Students",
-     y = "Number of Schools") +
-       theme_minimal()
-
 ```
 
+
+This histogram is also a little skewed to the right. This shows that 30% of black students is the most common percentage of students since it is above 15 schools.
+
+ggplot(ct_schools, aes(x = pct_hispanic)) +
+
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+
+   labs(
+
+     title = "Distribution of % Hispanic Students Across Schools",
+
+     x = "Percent Hispanic Students",
+
+     y = "Number of Schools") +
+
+       theme_minimal()
+
+```{r}
 ggplot(ct_schools, aes(x = pct_hispanic)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
    labs(
@@ -247,17 +335,25 @@ ggplot(ct_schools, aes(x = pct_hispanic)) +
      y = "Number of Schools") +
        theme_minimal()
 
-```{r}
-ggplot(ct_schools, aes(x = pct_hispanic)) +
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-   labs(
-     title = "Distribution of % Hispanic Students Across Schools",
-     x = "Percent Hispanic Students",
-     y = "Number of Schools") +
-       theme_minimal()
-
 ```
 
+This histogram is a little assymetric as the highest point is in the middle with the most number of schools having 45% of hispanic students. You can make an argument that it is skewed to the right with the way this histogram is set up.
+
+ggplot(ct_schools, aes(x = pct_asian)) +
+
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+
+   labs(
+
+     title = "Distribution of % Asian Students Across Schools",
+
+     x = "Percent Asian Students",
+
+     y = "Number of Schools") +
+
+       theme_minimal()
+
+```{r}
 ggplot(ct_schools, aes(x = pct_asian)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
    labs(
@@ -266,17 +362,25 @@ ggplot(ct_schools, aes(x = pct_asian)) +
      y = "Number of Schools") +
        theme_minimal()
 
-```{r}
-ggplot(ct_schools, aes(x = pct_asian)) +
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-   labs(
-     title = "Distribution of % Asian Students Across Schools",
-     x = "Percent Asian Students",
-     y = "Number of Schools") +
-       theme_minimal()
-
 ```
 
+This histogram is clearly skewed to the right. Most schools have 0% of asian students.
+
+ggplot(ct_schools, aes(x = pct_other)) +
+
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+
+   labs(
+
+     title = "Distribution of % Other Students Across Schools",
+
+     x = "Percent Other Students",
+
+     y = "Number of Schools") +
+
+       theme_minimal()
+
+```{r}
 ggplot(ct_schools, aes(x = pct_other)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
    labs(
@@ -285,35 +389,36 @@ ggplot(ct_schools, aes(x = pct_other)) +
      y = "Number of Schools") +
        theme_minimal()
 
+```
+
+This distribution is also right skewed even though the tallest bar is in the middle. We can clearly see a huge dip when the distribution continues to the right.
+
+ggplot(ct_schools, aes(x = pct_frpl)) +
+
+   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+
+   labs(
+
+     title = "Distribution of % Free Lunch Students Across Schools",
+
+     x = "Percent Free Lunch Students",
+
+     y = "Number of Schools") +
+
+       theme_minimal()
+
 ```{r}
-ggplot(ct_schools, aes(x = pct_other)) +
+ggplot(ct_schools, aes(x = pct_frpl)) +
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
    labs(
-     title = "Distribution of % Other Students Across Schools",
-     x = "Percent Other Students",
+     title = "Distribution of % Free Lunch Students Across Schools",
+     x = "Percent Free Lunch Students",
      y = "Number of Schools") +
        theme_minimal()
 
 ```
 
-ggplot(ct_schools, aes(x = pct_frpl)) +
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-   labs(
-     title = "Distribution of % Frpl Students Across Schools",
-     x = "Percent Frpl Students",
-     y = "Number of Schools") +
-       theme_minimal()
-
-```{r}
-ggplot(ct_schools, aes(x = pct_frpl)) +
-   geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
-   labs(
-     title = "Distribution of % Frpl Students Across Schools",
-     x = "Percent Frpl Students",
-     y = "Number of Schools") +
-       theme_minimal()
-
-```
+Now this distribution, unlike the others, is skewed to the left. This means that the higher percentage has a positive relationship with the number of schools. The higher the percent of free lunch students, the higher the number of schools. 100% of free lunch students skyrockets compared to the rest of the data, but we can still see the increase in data in the histogram.
 
 ## Problem 5: 
 
@@ -322,6 +427,7 @@ Visualize the variation in the percent of students receiving free lunch (frelch)
 ### Answer:
 
 ct_schools <- ct_schools2 |>
+
   mutate(pct_freelunch = FRELCH / TOTFRL * 100)
 
 ```{r}
@@ -330,11 +436,17 @@ ct_schools <- ct_schools |>
 ```
 
 ggplot(ct_schools, aes(x = sch_type, y = pct_freelunch)) + 
+
   geom_boxplot() +
+
   labs(
+
       title = “Percent of Students Receiving Free Lunch by School Type”,
+
       x = “School Type”,
+
       y = “Percent of students”
+
    )
 
 ```{r}
@@ -352,7 +464,11 @@ ct_schools |>
 
 ```
 
+The Charter boxplot shows a right skewed distribution since the top is larger than the bottom. The center is around 86-87 and there are no outliers.
 
+The Magnet boxplot also shows a right skewed distribution and it also has an outlier of 67. The center is around 83.
+
+The TPS boxplot shows a symmetrical distribution since both sides look identical and the same size, but it does actually have an outlier at around 53. The center is around 90-91.
 
 ## Problem 6: 
 
@@ -363,11 +479,17 @@ Visualize the variation in the percent of students of each race and ethnicity in
 library(tidyr)
 
 race_data <- ct_schools |>
+
   select(sch_type, pct_white, pct_black, pct_hispanic, pct_asian, pct_other) |>
+
   pivot_longer(
+
     cols = starts_with("pct_"),
+
     names_to = "race",
+
     values_to = "percent"
+
   )
 
 ```{r}
@@ -402,6 +524,38 @@ ggplot(race_data, aes(x = sch_type, y = percent)) +
   facet_wrap(~ race, scales = "free_y") 
 ```
 
+Since this is a lot of data, I'm just going to summarize it:
+
+Asian:
+
++ Charter and Magnet schools boxplots have right skewed distribution
++ Charter has center of 0 and Magnet has center of 3.
++ TPS boxplot is asymmetrical with outlier of 25. Center is same as Magnet.
+
+Black:
+
++ Charter boxplot is skewed left with center of around 84 and no outliers
++ Magnet boxplot looks asymmetrical, but can argue is skewed to the right with the top side being just a little bigger. Center is around 27 with no outliers.
++ TPS boxplot is asymmetrical with a center of 22-23 and 3 outliers: 66, 75, 84.
+
+Hispanic:
+
++ Charter boxplot is skewed left with center of 12 or 13 and no outliers.
++ Magnet boxplot is skewed right with center of 28 and no outliers.
++ TPS boxplot is asymmetrical with center of 61 and no outliers.
+
+Other:
+
++ Charter boxplot is skewed left with center of 2.6 and no outliers.
++ Magnet boxplot is asymmetrical but can argue is skewed left with the lower side being larger. It has a center of 4.375 and no outliers.
++ TPS boxplot is asymmetrical with center of 3.125 and an outlier of around 10.
+
+White:
+
++ Charter boxplot is skewed right with center of almost 0 but just right above it and no outliers.
++ Magnet boxplot is asymmetrical with center of 28.125 and looks like 3 outliers: 6.25, 43.75, and 75.
++ TPS boxplot is skewed right with center of 22-23 and no outliers.
+
 ## Problem 7:
 
 With more R skills what types of questions could you answer using this dataset?
@@ -421,6 +575,21 @@ With more R skills, I can possibly answer these questions:
 What are some questions you have about this dataset? What information would you add to the dataset, if you could?
 
 ### Answer:
+
+Some questions I have about this dataset are:
+
++ How accurate are the variables/data?
++ How are the types of school identified? Is it in their name?
++ What exactly are Title I schools?
++ If a student is mixed with ethnicities, what do they do?
+
+What information can I add?:
+
++ Hair color
++ Test scores (Probably SAT's)
++ The school's area's weather
++ A student's main language
+
 
 
 
