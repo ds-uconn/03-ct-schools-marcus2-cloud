@@ -369,7 +369,7 @@ What information can I add?:
 
 This project was a little more difficult than expected, but my friends really helped me. I also had some assistance with ChatGPT. I had to figure some stuff out on my own, but I got it done, and that's what helps us learn.
 
-Also, when I realizd that there is a coding window that pops up and shows what I've voded, I just showed that instead of rewriting my code on the whole thing. It also shows the answers, so I also stopped rewriting the answers down since it's already there. It makes it look more clean and easier to read. 
+Also, when I realizd that there is a coding window that pops up and shows what I've voded, I just showed that instead of rewriting my code on the whole thing. And it also shows the answers, so I also stopped rewriting the answers down since it's already there. It makes it look more clean and easier to read. 
 
 
 
