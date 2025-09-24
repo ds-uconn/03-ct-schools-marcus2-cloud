@@ -257,6 +257,8 @@ ct_schools <- ct_schools |>
 
 b. 
 
+White: 
+
 ggplot(ct_schools, aes(x = pct_white)) +
 
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
@@ -283,6 +285,8 @@ ggplot(ct_schools, aes(x = pct_white)) +
 ```
 
 This histogram for the percent of white students is skewed to the right which means that less schools have a larger percentage of white students. Out of all the percentages shown, 0% of white students is the most common distribution of white students in schools because in the histogram, you can see that 0% has more than 15 which is the highest bar there.
+
+Black:
 
 ggplot(ct_schools, aes(x = pct_black)) +
 
@@ -312,6 +316,8 @@ ggplot(ct_schools, aes(x = pct_black)) +
 
 This histogram is also a little skewed to the right. This shows that 30% of black students is the most common percentage of students since it is above 15 schools.
 
+Hispanic:
+
 ggplot(ct_schools, aes(x = pct_hispanic)) +
 
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
@@ -338,6 +344,8 @@ ggplot(ct_schools, aes(x = pct_hispanic)) +
 ```
 
 This histogram is a little assymetric as the highest point is in the middle with the most number of schools having 45% of hispanic students. You can make an argument that it is skewed to the right with the way this histogram is set up.
+
+Asian:
 
 ggplot(ct_schools, aes(x = pct_asian)) +
 
@@ -366,6 +374,8 @@ ggplot(ct_schools, aes(x = pct_asian)) +
 
 This histogram is clearly skewed to the right. Most schools have 0% of asian students.
 
+Other:
+
 ggplot(ct_schools, aes(x = pct_other)) +
 
    geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
@@ -392,6 +402,8 @@ ggplot(ct_schools, aes(x = pct_other)) +
 ```
 
 This distribution is also right skewed even though the tallest bar is in the middle. We can clearly see a huge dip when the distribution continues to the right.
+
+Free Lunch:
 
 ggplot(ct_schools, aes(x = pct_frpl)) +
 
@@ -589,6 +601,8 @@ What information can I add?:
 + Test scores (Probably SAT's)
 + The school's area's weather
 + A student's main language
+
+This project was a little more difficult than expected, but my friends really helped me. I also had some assistance with ChatGPT. I had to figure some stuff out on my own, but I got it done, and that's what helps us learn.
 
 
 
